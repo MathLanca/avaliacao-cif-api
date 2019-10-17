@@ -176,10 +176,10 @@ def atualizar_usuario(request):
 @api_view(['POST'])
 #@permission_classes((IsAuthenticated,))
 def novo_usuario(request):
-    userSerial = serializers.UserSerializer(request.user, request.data)
-    userSerial.is_valid(True)
-    userSerial.save()
+    userSerial = serializers.UserSerializer(request.data)
     return Response(userSerial.data)
+    #userSerial.is_valid(True)
+    #userSerial.is_valid().save()
 
 
 @api_view(['POST'])
