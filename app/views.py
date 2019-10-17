@@ -12,7 +12,7 @@ from . import models, serializers
 class CoreSetViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = models.CoreSet.objects.all()
     serializer_class = serializers.CoreSetSerializer
-    permission_classes = (IsAuthenticated, )
+    permission_classes = (IsAuthenticated,)
 
 
 class FonteInformacaoViewSet(viewsets.ReadOnlyModelViewSet):
@@ -47,7 +47,7 @@ class AvaliacaoViewSet(viewsets.ReadOnlyModelViewSet):
         try:
             pessoa = models.Pessoa.objects.get(user=self.request.user.id)
             if self.request.user.is_staff:
-                f = {"terapeuta":pessoa.id}
+                f = {"terapeuta": pessoa.id}
             else:
                 f = {"paciente": pessoa.id}
             return models.Avalicao.objects.filter(**f)
@@ -115,6 +115,7 @@ def valida_avaliacao(avaliacao):
                         quali.descricao, pergunta.titulo)
                 )
 
+
 def gravar_avaliacao(request):
     avaliacao_dados = request.data
     coreSet = models.CoreSet.objects.get(pk=avaliacao_dados.get('coreSet'))
@@ -173,7 +174,7 @@ def atualizar_usuario(request):
 
 
 @api_view(['POST'])
-@permission_classes((IsAuthenticated,))
+#@permission_classes((IsAuthenticated,))
 def novo_usuario(request):
     userSerial = serializers.UserSerializer(request.user, request.data)
     userSerial.is_valid(True)
